@@ -1,7 +1,9 @@
+import 'package:chart_mentor/screens/Learnpage.dart';
 import 'package:chart_mentor/screens/auth/numberscreen.dart';
 import 'package:chart_mentor/screens/cardscreen.dart';
 import 'package:chart_mentor/screens/chartofday.dart';
 import 'package:chart_mentor/screens/indexhistory.dart';
+import 'package:chart_mentor/screens/newsscreen.dart';
 import 'package:chart_mentor/screens/profile.dart';
 import 'package:chart_mentor/screens/qoute.dart';
 import 'package:chart_mentor/screens/splashscreen.dart';
@@ -29,7 +31,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         home:
-            Chartofday() //QuotesScreen() //ProfileScreen() //StocksInsightsScreen() //IndexInsightsScreen() //HomeScreen(),
+            LearnScreen() //NewsScreen() //Chartofday() //QuotesScreen() //ProfileScreen() //StocksInsightsScreen() //IndexInsightsScreen() //HomeScreen(),
         );
   }
 }
