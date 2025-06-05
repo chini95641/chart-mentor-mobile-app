@@ -3,9 +3,13 @@ import 'package:chart_mentor/screens/auth/numberscreen.dart';
 import 'package:chart_mentor/screens/cardscreen.dart';
 import 'package:chart_mentor/screens/chartofday.dart';
 import 'package:chart_mentor/screens/indexhistory.dart';
+import 'package:chart_mentor/screens/newsdetail.dart';
 import 'package:chart_mentor/screens/newsscreen.dart';
+import 'package:chart_mentor/screens/particpant.dart';
 import 'package:chart_mentor/screens/profile.dart';
 import 'package:chart_mentor/screens/qoute.dart';
+import 'package:chart_mentor/screens/quizinput.dart';
+import 'package:chart_mentor/screens/quizscreen.dart';
 import 'package:chart_mentor/screens/splashscreen.dart';
 import 'package:chart_mentor/screens/page1.dart';
 import 'package:chart_mentor/screens/stockinsight.dart';
@@ -30,8 +34,12 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home:
-            LearnScreen() //NewsScreen() //Chartofday() //QuotesScreen() //ProfileScreen() //StocksInsightsScreen() //IndexInsightsScreen() //HomeScreen(),
+        home: //ChartMentorScreen()
+            QuizTextInputScreen()
+        // QuizQuestionScreen()
+        //     questionNumber: 1,
+        //     question:
+        //         'What are candles?') //NewsDetailsScreen()//LearnScreen() //NewsScreen() //Chartofday() //QuotesScreen() //ProfileScreen() //StocksInsightsScreen() //IndexInsightsScreen() //HomeScreen(),
         );
   }
 }
