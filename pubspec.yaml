@@ -73,6 +73,11 @@ flutter:
     - assets\images\Group 6.png
     - assets\images\03.png
     - assets\images\Image1.png
+    - assets\feedimages\image2.png
+    - assets\feedimages\image3.png
+    - assets\feedimages\Round.png
+    - assets\feedimages\Round1.png
+    - assets\feedimages\image4.png
 
   #   - images/a_dot_ham.jpeg
 

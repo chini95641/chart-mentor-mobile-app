@@ -2,7 +2,11 @@ import 'package:chart_mentor/screens/Learnpage.dart';
 import 'package:chart_mentor/screens/auth/numberscreen.dart';
 import 'package:chart_mentor/screens/cardscreen.dart';
 import 'package:chart_mentor/screens/chartofday.dart';
+import 'package:chart_mentor/screens/feedscreen.dart';
+import 'package:chart_mentor/screens/hsitory.dart';
 import 'package:chart_mentor/screens/indexhistory.dart';
+import 'package:chart_mentor/screens/learn_topic.dart';
+import 'package:chart_mentor/screens/long_term_inv.dart';
 import 'package:chart_mentor/screens/newsdetail.dart';
 import 'package:chart_mentor/screens/newsscreen.dart';
 import 'package:chart_mentor/screens/particpant.dart';
@@ -13,6 +17,11 @@ import 'package:chart_mentor/screens/quizscreen.dart';
 import 'package:chart_mentor/screens/splashscreen.dart';
 import 'package:chart_mentor/screens/page1.dart';
 import 'package:chart_mentor/screens/stockinsight.dart';
+import 'package:chart_mentor/screens/swingtrading.dart';
+import 'package:chart_mentor/screens/talktomentor.dart';
+import 'package:chart_mentor/screens/wallet_screen.dart';
+import 'package:chart_mentor/screens/watchlist.dart';
+import 'package:chart_mentor/screens/watchlistto_asset.dart';
 import 'package:flutter/material.dart';
 
 import 'screens/page2.dart';
@@ -34,8 +43,9 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: //ChartMentorScreen()
-            QuizTextInputScreen()
+        home:
+            EWalletDetailScreen() //AssetDetailScreen() // Watchlist() //PastHistoryScreen() //LearnTopicsScreen() //LongTermScreen() //SwingTradingScreen() //FeedScreen() //ChatScreen() //ChartMentorScreen()
+        //QuizTextInputScreen()
         // QuizQuestionScreen()
         //     questionNumber: 1,
         //     question:
