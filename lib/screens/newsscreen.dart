@@ -1,3 +1,4 @@
+import 'package:chart_mentor/screens/newsdetail.dart';
 import 'package:flutter/material.dart';
 
 class NewsScreen extends StatelessWidget {
@@ -38,7 +39,13 @@ class NewsScreen extends StatelessWidget {
           const SizedBox(height: 20),
 
           // Featured News
-          _featuredNews(heights: heights * .3),
+          InkWell(
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => NewsDetailsScreen(),
+                  )),
+              child: _featuredNews(heights: heights * .3)),
 
           const SizedBox(height: 20),
           _sectionHeader("Trending"),
@@ -53,7 +60,6 @@ class NewsScreen extends StatelessWidget {
           _verticalNewsItem("Trump tax bill clears procedural vote in US"),
         ],
       ),
-      bottomNavigationBar: _bottomBar(currentIndex: 2),
     );
   }
 
@@ -109,7 +115,6 @@ class NewsScreen extends StatelessWidget {
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: [
-          _newsCard("Trump's Golden Dome plan", "Historical", heights),
           _newsCard("CorVel reports Q4 earnings beat", "Pop Culture", heights),
         ],
       ),
@@ -147,24 +152,6 @@ class NewsScreen extends StatelessWidget {
         Expanded(
             child: Text(title,
                 style: const TextStyle(fontWeight: FontWeight.bold))),
-      ],
-    );
-  }
-
-  Widget _bottomBar({required int currentIndex}) {
-    return BottomNavigationBar(
-      currentIndex: currentIndex,
-      selectedItemColor: Colors.blue,
-      unselectedItemColor: Colors.grey,
-      type: BottomNavigationBarType.fixed,
-      items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: 'Activity'),
-        BottomNavigationBarItem(icon: Icon(Icons.school), label: 'Learn'),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.format_quote), label: 'Quotes'),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.pie_chart), label: 'Portfolio'),
-        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
       ],
     );
   }

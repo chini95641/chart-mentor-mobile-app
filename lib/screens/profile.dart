@@ -15,30 +15,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     var widths = MediaQuery.sizeOf(context).width;
     var heights = MediaQuery.sizeOf(context).height;
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Row(
-          children: [
-            Image.asset(
-              'assets/logo/Logo.png',
-              height: 25,
-            ),
-            Text(
-              'Chart Mentor',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-        actions: const [
-          Padding(
-            padding: EdgeInsets.only(right: 16),
-            child: Icon(Icons.notifications_outlined),
-          ),
-        ],
-      ),
-      body: ListView(
+    return 
+     Scaffold(
+    //   backgroundColor: Colors.white,
+    //   appBar: AppBar(
+    //     backgroundColor: Colors.white,
+    //     title: Row(
+    //       children: [
+    //         Image.asset(
+    //           'assets/logo/Logo.png',
+    //           height: 25,
+    //         ),
+    //         Text(
+    //           'Chart Mentor',
+    //           style: TextStyle(fontWeight: FontWeight.bold),
+    //         ),
+    //       ],
+    //     ),
+    //     actions: const [
+    //       Padding(
+    //         padding: EdgeInsets.only(right: 16),
+    //         child: Icon(Icons.notifications_outlined),
+    //       ),
+    //     ],
+    //   ),
+       body: 
+      ListView(
         //padding: const EdgeInsets.all(16),
         children: [
           Row(
@@ -103,23 +105,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 style: TextStyle(color: Colors.blue.shade700)),
           ),
         ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 4,
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey,
-        type: BottomNavigationBarType.fixed,
-        items: const [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.bar_chart), label: 'Activity'),
-          BottomNavigationBarItem(icon: Icon(Icons.school), label: 'Learn'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.format_quote), label: 'Quotes'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.pie_chart), label: 'Portfolio'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-        ],
-      ),
+      
+      // bottomNavigationBar: BottomNavigationBar(
+      //   currentIndex: 4,
+      //   selectedItemColor: Colors.blue,
+      //   unselectedItemColor: Colors.grey,
+      //   type: BottomNavigationBarType.fixed,
+      //   items: const [
+      //     BottomNavigationBarItem(
+      //         icon: Icon(Icons.bar_chart), label: 'Activity'),
+      //     BottomNavigationBarItem(icon: Icon(Icons.school), label: 'Learn'),
+      //     BottomNavigationBarItem(
+      //         icon: Icon(Icons.format_quote), label: 'Quotes'),
+      //     BottomNavigationBarItem(
+      //         icon: Icon(Icons.pie_chart), label: 'Portfolio'),
+      //     BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+      //   ],
+       ),
     );
   }
 

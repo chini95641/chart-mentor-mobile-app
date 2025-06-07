@@ -1,6 +1,10 @@
 import 'package:another_telephony/telephony.dart';
+import 'package:chart_mentor/screens/homescreen.dart';
+import 'package:chart_mentor/screens/splashscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+
+import '../../main.dart';
 
 class OtpScreen extends StatefulWidget {
   String verificationid, number;
@@ -155,18 +159,29 @@ class _OtpScreenState extends State<OtpScreen> {
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
-                              Container(
-                                height: heights * .06,
-                                width: widths * .9,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
-                                    color: Colors.blue),
-                                child: const Center(
-                                  child: Text(
-                                    'Allow',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => DashboardScreen(),
+                                    ),
+                                    (route) => true,
+                                  );
+                                },
+                                child: Container(
+                                  height: heights * .06,
+                                  width: widths * .9,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      color: Colors.blue),
+                                  child: const Center(
+                                    child: Text(
+                                      'Allow',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                      ),
                                     ),
                                   ),
                                 ),

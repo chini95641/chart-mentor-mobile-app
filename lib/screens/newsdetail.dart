@@ -16,7 +16,7 @@ class NewsDetailsScreen extends StatelessWidget {
         elevation: 0,
         leading: BackButton(),
       ),
-      bottomNavigationBar: BottomNavBar(currentIndex: 2),
+     
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -68,24 +68,5 @@ class NewsDetailsScreen extends StatelessWidget {
   }
 }
 
-class BottomNavBar extends StatelessWidget {
-  final int currentIndex;
-  BottomNavBar({required this.currentIndex});
 
-  @override
-  Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      currentIndex: currentIndex,
-      type: BottomNavigationBarType.fixed,
-      items: [
-        BottomNavigationBarItem(icon: Icon(Icons.timeline), label: "Activity"),
-        BottomNavigationBarItem(icon: Icon(Icons.school), label: "Learn"),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.format_quote), label: "Quotes"),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.pie_chart), label: "Portfolio"),
-        BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
-      ],
-    );
-  }
-}
+

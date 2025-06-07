@@ -7,68 +7,68 @@ class FeedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        centerTitle: true,
-        elevation: 0.5,
-        title: const Text(
-          'CHART MENTOR',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+    // return Scaffold(
+    //   backgroundColor: Colors.white,
+    //   appBar: AppBar(
+    //     backgroundColor: Colors.white,
+    //     centerTitle: true,
+    //     elevation: 0.5,
+    //     title: const Text(
+    //       'CHART MENTOR',
+    //       style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+    //     ),
+    //   ),
+    //   body:
+    return ListView(
+      children: const [
+        PostCard(
+          username: "Maximilian",
+          handle: "@maxjacobson",
+          time: "3h",
+          content: "EV stock crashes after Kia Corp.",
+          imageUrl: "assets/feedimages/image2.png",
+          avatarUrl: "assets/feedimages/Round.png",
         ),
-      ),
-      body: ListView(
-        children: const [
-          PostCard(
-            username: "Maximilian",
-            handle: "@maxjacobson",
-            time: "3h",
-            content: "EV stock crashes after Kia Corp.",
-            imageUrl: "assets/feedimages/image2.png",
-            avatarUrl: "assets/feedimages/Round.png",
-          ),
-          PostCard(
-            username: "Tabitha Potter",
-            handle: "@mis_potter",
-            time: "14h",
-            content: "Stocks to buy now for an upside of 56%",
-            imageUrl: "assets/feedimages/image3.png",
-            avatarUrl: "assets/feedimages/Round1.png",
-          ),
-          PostCard(
-            username: "Karenne",
-            handle: "@karenne",
-            time: "10h",
-            content: "Name a show where the lead character is the worst...",
-            imageUrl: "assets/feedimages/image2.png",
-            avatarUrl: "assets/feedimages/Round.png",
-          ),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey,
-        type: BottomNavigationBarType.fixed,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Activity'),
-          BottomNavigationBarItem(icon: Icon(Icons.school), label: 'Learn'),
-          BottomNavigationBarItem(icon: Icon(Icons.chat), label: 'Quotes'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.account_balance), label: 'Portfolio'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-        ],
-        onTap: (index) {
-          if (index == 2) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const ChatScreen()),
-            );
-          }
-        },
-      ),
+        PostCard(
+          username: "Tabitha Potter",
+          handle: "@mis_potter",
+          time: "14h",
+          content: "Stocks to buy now for an upside of 56%",
+          imageUrl: "assets/feedimages/image3.png",
+          avatarUrl: "assets/feedimages/Round1.png",
+        ),
+        PostCard(
+          username: "Karenne",
+          handle: "@karenne",
+          time: "10h",
+          content: "Name a show where the lead character is the worst...",
+          imageUrl: "assets/feedimages/image2.png",
+          avatarUrl: "assets/feedimages/Round.png",
+        ),
+      ],
     );
+    // bottomNavigationBar: BottomNavigationBar(
+    //   currentIndex: 0,
+    //   selectedItemColor: Colors.blue,
+    //   unselectedItemColor: Colors.grey,
+    //   type: BottomNavigationBarType.fixed,
+    //   items: const [
+    //     BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Activity'),
+    //     BottomNavigationBarItem(icon: Icon(Icons.school), label: 'Learn'),
+    //     BottomNavigationBarItem(icon: Icon(Icons.chat), label: 'Quotes'),
+    //     BottomNavigationBarItem(
+    //         icon: Icon(Icons.account_balance), label: 'Portfolio'),
+    //     BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+    //   ],
+    //   onTap: (index) {
+    //     if (index == 2) {
+    //       Navigator.push(
+    //         context,
+    //         MaterialPageRoute(builder: (context) => const ChatScreen()),
+    //       );
+    //     }
+    //   },
+    // ),
   }
 }
 

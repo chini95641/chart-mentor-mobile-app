@@ -1,6 +1,6 @@
 import 'package:chart_mentor/screens/Learnpage.dart';
 import 'package:chart_mentor/screens/auth/numberscreen.dart';
-import 'package:chart_mentor/screens/cardscreen.dart';
+import 'package:chart_mentor/screens/homescreen.dart';
 import 'package:chart_mentor/screens/chartofday.dart';
 import 'package:chart_mentor/screens/feedscreen.dart';
 import 'package:chart_mentor/screens/hsitory.dart';
@@ -23,15 +23,19 @@ import 'package:chart_mentor/screens/wallet_screen.dart';
 import 'package:chart_mentor/screens/watchlist.dart';
 import 'package:chart_mentor/screens/watchlistto_asset.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'screens/page2.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 void main() async {
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
+  print('${dotenv.env['_openAiKey']}in main');
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
+
   runApp(const MyApp());
 }
 
@@ -48,7 +52,8 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
           useMaterial3: true,
         ),
-        home: SplashScreen()
+        home: //DashboardScreen()
+        SplashScreen()
         //LearnTopicsScreen()
         //ChartMentorScreen()
         // ChatScreen()

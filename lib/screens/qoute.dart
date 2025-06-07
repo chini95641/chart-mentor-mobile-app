@@ -163,6 +163,7 @@
 //   }
 // }
 
+import 'package:chart_mentor/screens/chartofday.dart';
 import 'package:flutter/material.dart';
 
 class QuotesScreen extends StatelessWidget {
@@ -175,100 +176,110 @@ class QuotesScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        leading: const Icon(Icons.arrow_back),
-        title: const Text('Quotes'),
-        centerTitle: true,
-      ),
-      body: ListView(
-        padding: EdgeInsets.all(screenWidth * 0.04),
-        children: [
-          const Row(
-            children: [
-              Icon(Icons.access_time, size: 18),
-              SizedBox(width: 8),
-              Text("Friday, 17 May",
-                  style: TextStyle(fontWeight: FontWeight.bold)),
-            ],
-          ),
-          SizedBox(height: screenHeight * 0.005),
-          const Text("Nifty sideways, avoid entries"),
-          SizedBox(height: screenHeight * 0.02),
-          const Text("Today's Quote",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-          SizedBox(height: screenHeight * 0.01),
-          Container(
-            padding: EdgeInsets.all(screenWidth * 0.04),
-            decoration: BoxDecoration(
-              color: Colors.grey[100],
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: const Text('"Trade only when it’s clear"',
-                style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic)),
-          ),
-          SizedBox(height: screenHeight * 0.03),
-          const Text("Popular",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-          SizedBox(height: screenHeight * 0.015),
-          SizedBox(
-            height: screenHeight * 0.3,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
+      // appBar: AppBar(
+      //   backgroundColor: Colors.white,
+      //   leading: const Icon(Icons.arrow_back),
+      //   title: const Text('Quotes'),
+      //   centerTitle: true,
+      // ),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 18.0),
+        child: ListView(
+          padding: EdgeInsets.all(screenWidth * 0.04),
+          children: [
+            const Row(
               children: [
-                _buildPopularCard(
-                  icon: Icons.bar_chart,
-                  label: "Chart of the Day",
-                  backgroundColor: Colors.blue,
-                  width: screenWidth * 0.4,
-                  height: screenHeight * 0.2,
-                ),
-                SizedBox(width: screenWidth * 0.03),
-                _buildPopularCard(
-                  icon: Icons.play_circle_outline,
-                  label: "New Learning Video",
-                  backgroundColor: Colors.grey[200]!,
-                  width: screenWidth * 0.4,
-                  height: screenHeight * 0.2,
-                ),
+                Icon(Icons.access_time, size: 18),
+                SizedBox(width: 8),
+                Text("Friday, 17 May",
+                    style: TextStyle(fontWeight: FontWeight.bold)),
               ],
             ),
-          ),
-          SizedBox(height: screenHeight * 0.03),
-          const Text("Recent Updates",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-          SizedBox(height: screenHeight * 0.015),
-          _buildUpdateCard(
-            imageUrl: "assets/images/Image1.png",
-            title: "Market don't care about your hopes",
-            subtitle: "Mindset Tips: Fear is not a signal",
-            screenHeight: screenHeight,
-          ),
-          SizedBox(height: screenHeight * 0.02),
-          _buildUpdateCard(
-            imageUrl: "assets/images/Image1.png",
-            title: "Be patient, setup will come",
-            subtitle: "Discipline over emotion.",
-            screenHeight: screenHeight,
-          ),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
-        currentIndex: 2,
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey,
-        type: BottomNavigationBarType.fixed,
-        items: const [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.bar_chart), label: 'Activity'),
-          BottomNavigationBarItem(icon: Icon(Icons.school), label: 'Learn'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.format_quote), label: 'Quotes'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.pie_chart), label: 'Portfolio'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-        ],
+            SizedBox(height: screenHeight * 0.005),
+            const Text("Nifty sideways, avoid entries"),
+            SizedBox(height: screenHeight * 0.02),
+            const Text("Today's Quote",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            SizedBox(height: screenHeight * 0.01),
+            Container(
+              padding: EdgeInsets.all(screenWidth * 0.04),
+              decoration: BoxDecoration(
+                color: Colors.grey[100],
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: const Text('"Trade only when it’s clear"',
+                  style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic)),
+            ),
+            SizedBox(height: screenHeight * 0.03),
+            const Text("Popular",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            SizedBox(height: screenHeight * 0.015),
+            SizedBox(
+              height: screenHeight * 0.3,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  InkWell(
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Chartofday(),
+                        )),
+                    child: _buildPopularCard(
+                      icon: Icons.bar_chart,
+                      label: "Chart of the Day",
+                      backgroundColor: Colors.blue,
+                      width: screenWidth * 0.4,
+                      height: screenHeight * 0.2,
+                    ),
+                  ),
+                  SizedBox(width: screenWidth * 0.03),
+                  _buildPopularCard(
+                    icon: Icons.play_circle_outline,
+                    label: "New Learning Video",
+                    backgroundColor: Colors.grey[200]!,
+                    width: screenWidth * 0.4,
+                    height: screenHeight * 0.2,
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: screenHeight * 0.03),
+            const Text("Recent Updates",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            SizedBox(height: screenHeight * 0.015),
+            _buildUpdateCard(
+              imageUrl: "assets/images/Image1.png",
+              title: "Market don't care about your hopes",
+              subtitle: "Mindset Tips: Fear is not a signal",
+              screenHeight: screenHeight,
+            ),
+            SizedBox(height: screenHeight * 0.02),
+            _buildUpdateCard(
+              imageUrl: "assets/images/Image1.png",
+              title: "Be patient, setup will come",
+              subtitle: "Discipline over emotion.",
+              screenHeight: screenHeight,
+            ),
+          ],
+
+          // bottomNavigationBar: BottomNavigationBar(
+          //   backgroundColor: Colors.white,
+          //   currentIndex: 2,
+          //   selectedItemColor: Colors.blue,
+          //   unselectedItemColor: Colors.grey,
+          //   type: BottomNavigationBarType.fixed,
+          //   items: const [
+          //     BottomNavigationBarItem(
+          //         icon: Icon(Icons.bar_chart), label: 'Activity'),
+          //     BottomNavigationBarItem(icon: Icon(Icons.school), label: 'Learn'),
+          //     BottomNavigationBarItem(
+          //         icon: Icon(Icons.format_quote), label: 'Quotes'),
+          //     BottomNavigationBarItem(
+          //         icon: Icon(Icons.pie_chart), label: 'Portfolio'),
+          //     BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+          //   ],
+        ),
       ),
     );
   }

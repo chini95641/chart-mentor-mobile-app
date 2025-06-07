@@ -1,2 +1,2 @@
-String chatgpt_api =
-    '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';
+const chatgpt_api =
+    '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';
