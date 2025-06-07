@@ -267,6 +267,8 @@ import 'package:fl_chart/fl_chart.dart';
 class AssetDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var widths = MediaQuery.sizeOf(context).width;
+    var heights = MediaQuery.sizeOf(context).height;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -310,7 +312,7 @@ class AssetDetailScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 16),
                     Container(
-                      height: 200,
+                      height: heights * .25,
                       child: LineChart(
                         LineChartData(
                           gridData: FlGridData(show: false),
@@ -384,17 +386,21 @@ class AssetDetailScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 8),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        TextButton(onPressed: () {}, child: Text('1H')),
-                        TextButton(onPressed: () {}, child: Text('1D')),
-                        TextButton(onPressed: () {}, child: Text('1W')),
-                        TextButton(onPressed: () {}, child: Text('1M')),
-                        TextButton(onPressed: () {}, child: Text('1Y')),
-                        TextButton(onPressed: () {}, child: Text('YTD')),
-                      ],
-                    ),
+                   SingleChildScrollView(
+    scrollDirection: Axis.horizontal,
+    child: Row(
+      children: [
+        SizedBox(width: 8),
+        TextButton(onPressed: () {}, child: Text('1H')),
+        TextButton(onPressed: () {}, child: Text('1D')),
+        TextButton(onPressed: () {}, child: Text('1W')),
+        TextButton(onPressed: () {}, child: Text('1M')),
+        TextButton(onPressed: () {}, child: Text('1Y')),
+        TextButton(onPressed: () {}, child: Text('YTD')),
+        SizedBox(width: 8),
+      ],
+    ),
+  ),
                     SizedBox(height: 16),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -432,8 +438,8 @@ class AssetDetailScreen extends StatelessWidget {
                               ),
                             ),
                             Container(
-                              height: 60,
-                              width: 100,
+                              height: heights * .1,
+                              width: widths * .2,
                               child: LineChart(
                                 LineChartData(
                                   gridData: FlGridData(show: false),

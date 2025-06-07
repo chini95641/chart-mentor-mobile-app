@@ -25,8 +25,13 @@ import 'package:chart_mentor/screens/watchlistto_asset.dart';
 import 'package:flutter/material.dart';
 
 import 'screens/page2.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -40,16 +45,33 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'chat mentor',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
           useMaterial3: true,
         ),
-        home:
-            EWalletDetailScreen() //AssetDetailScreen() // Watchlist() //PastHistoryScreen() //LearnTopicsScreen() //LongTermScreen() //SwingTradingScreen() //FeedScreen() //ChatScreen() //ChartMentorScreen()
+        home: SplashScreen()
+        //LearnTopicsScreen()
+        //ChartMentorScreen()
+        // ChatScreen()
+        //FeedScreen()
+        // SwingTradingScreen()
+        //LongTermScreen()
+        //PastHistoryScreen()
+        //Watchlist()
+        //AssetDetailScreen()
+        //EWalletDetailScreen()
+        //LearnTopicsScreen()
+        //FeedScreen()
         //QuizTextInputScreen()
         // QuizQuestionScreen()
-        //     questionNumber: 1,
-        //     question:
-        //         'What are candles?') //NewsDetailsScreen()//LearnScreen() //NewsScreen() //Chartofday() //QuotesScreen() //ProfileScreen() //StocksInsightsScreen() //IndexInsightsScreen() //HomeScreen(),
+        //NewsDetailsScreen()
+        // LearnScreen()
+        //NewsScreen()
+        //Chartofday()
+        //QuotesScreen() //
+        //ProfileScreen()
+        //StocksInsightsScreen()
+        //IndexInsightsScreen()
+        // HomeScreen(),
         );
   }
 }

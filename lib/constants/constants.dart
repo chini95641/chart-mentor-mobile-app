@@ -1,0 +1,2 @@
+String chatgpt_api =
+    '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';

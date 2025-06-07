@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "650591086297",
+    "project_id": "chart-mentor",
+    "storage_bucket": "chart-mentor.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:650591086297:android:94ebfec0fcef0f91bb00c8",
+        "android_client_info": {
+          "package_name": "com.chart.mentor"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuCCNyNHpWTIhd_dAJ8oLFjjur-pedeJU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

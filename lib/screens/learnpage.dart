@@ -48,7 +48,7 @@ class LearnScreen extends StatelessWidget {
   Widget _buildLearnCard(String title, String subtitle, IconData icon,
       {bool isActive = false}) {
     return Container(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         boxShadow: [BoxShadow(offset: Offset.fromDirection(2))],
         color: isActive ? Colors.blue : Colors.white,
@@ -58,12 +58,12 @@ class LearnScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Icon(icon, color: isActive ? Colors.white : Colors.black),
-          const SizedBox(height: 10),
+          const SizedBox(height: 3),
           Text(title,
               style: TextStyle(
                   color: isActive ? Colors.white : Colors.black,
                   fontWeight: FontWeight.bold)),
-          const SizedBox(height: 6),
+          const SizedBox(height: 3),
           Text(subtitle,
               style: TextStyle(
                   color: isActive ? Colors.white70 : Colors.black54,
