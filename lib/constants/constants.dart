@@ -1,2 +1,1 @@
-const chatgpt_api =
-    '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';
+
