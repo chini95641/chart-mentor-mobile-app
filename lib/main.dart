@@ -31,10 +31,9 @@ import 'firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
-  print('${dotenv.env['_openAiKey']}in main');
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   runApp(const MyApp());
 }
@@ -53,26 +52,26 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         home: //DashboardScreen()
-        SplashScreen()
-        //LearnTopicsScreen()
-        //ChartMentorScreen()
-        // ChatScreen()
-        //FeedScreen()
-        // SwingTradingScreen()
-        //LongTermScreen()
-        //PastHistoryScreen()
-        //Watchlist()
-        //AssetDetailScreen()
-        //EWalletDetailScreen()
-        //LearnTopicsScreen()
-        //FeedScreen()
-        //QuizTextInputScreen()
-        // QuizQuestionScreen()
-        //NewsDetailsScreen()
-        // LearnScreen()
-        //NewsScreen()
-        //Chartofday()
-        //QuotesScreen() //
+            //SplashScreen()
+            //LearnTopicsScreen()
+            //ChartMentorScreen()
+            // ChatScreen()
+            //FeedScreen()
+            // SwingTradingScreen()
+            //LongTermScreen()
+            //PastHistoryScreen()
+            //Watchlist()
+            //AssetDetailScreen()
+            //EWalletDetailScreen()
+            //LearnTopicsScreen()
+            //FeedScreen()
+            //QuizTextInputScreen()
+            // QuizQuestionScreen()
+            //NewsDetailsScreen()
+            // LearnScreen()
+            //NewsScreen()
+            //Chartofday()
+            QuotesScreen() //
         //ProfileScreen()
         //StocksInsightsScreen()
         //IndexInsightsScreen()

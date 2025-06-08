@@ -1,7 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'otp.dart';
 
 class NumberScreen extends StatefulWidget {
@@ -78,13 +77,52 @@ class _NumberScreenState extends State<NumberScreen> {
                   padding: EdgeInsets.only(top: heights * .1),
                   child: loading == false
                       ? GestureDetector(
-                          onTap: () {
-                            Navigator.push(context, MaterialPageRoute(
-                              builder: (context) {
-                                return OtpScreen(
-                                    verificationid: '', number: number);
-                              },
-                            ));
+                          onTap: () async {
+                            if (!_formKey.currentState!.validate()) return;
+
+                            setState(() {
+                              loading = true;
+                            });
+
+                            try {
+                              await FirebaseAuth.instance.verifyPhoneNumber(
+                                phoneNumber: number,
+                                verificationCompleted:
+                                    (PhoneAuthCredential credential) {},
+                                verificationFailed: (FirebaseAuthException ex) {
+                                  // Show the error in a snackbar
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text(ex.message ??
+                                            'Verification failed')),
+                                  );
+                                  setState(() {
+                                    loading = false; // allow retry
+                                  });
+                                },
+                                codeSent: (String verificationId, int? token) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => OtpScreen(
+                                        verificationid: verificationId,
+                                        number: number,
+                                      ),
+                                    ),
+                                  );
+                                  print('will move to otp screen');
+                                },
+                                codeAutoRetrievalTimeout: (_) {},
+                              );
+                            } catch (exception) {
+                              print(exception.toString());
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text(exception.toString())),
+                              );
+                              setState(() {
+                                loading = false;
+                              });
+                            }
                           },
                           child: Container(
                             height: heights * .06,
