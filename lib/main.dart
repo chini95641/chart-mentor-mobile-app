@@ -10,6 +10,7 @@ import 'package:chart_mentor/screens/long_term_inv.dart';
 import 'package:chart_mentor/screens/newsdetail.dart';
 import 'package:chart_mentor/screens/newsscreen.dart';
 import 'package:chart_mentor/screens/particpant.dart';
+import 'package:chart_mentor/screens/piechatscreen.dart';
 import 'package:chart_mentor/screens/profile.dart';
 import 'package:chart_mentor/screens/qoute.dart';
 import 'package:chart_mentor/screens/quizinput.dart';
@@ -52,7 +53,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         home: //DashboardScreen()
-            //SplashScreen()
+             SplashScreen()
             //LearnTopicsScreen()
             //ChartMentorScreen()
             // ChatScreen()
@@ -71,7 +72,8 @@ class MyApp extends StatelessWidget {
             // LearnScreen()
             //NewsScreen()
             //Chartofday()
-            QuotesScreen() //
+            //PortfolioScreen(),
+            //QuotesScreen() //
         //ProfileScreen()
         //StocksInsightsScreen()
         //IndexInsightsScreen()
