@@ -122,23 +122,34 @@ class _QuotesScreenState extends State<QuotesScreen> {
                   SizedBox(height: screenHeight * 0.015),
                   SizedBox(
                     height: screenHeight * 0.3,
-                    child: ListView.builder(
+                    width: double.infinity,
+                    child: ListView(
+                      //itemExtent: 2,
                       scrollDirection: Axis.horizontal,
-                      itemCount: quotes.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: EdgeInsets.only(right: screenWidth * 0.03),
+                      children: [
+                        InkWell(
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Chartofday(),
+                              )),
                           child: _buildPopularCard(
-                            icon: Icons.lightbulb, // can be dynamic if needed
-                            label: "Quote ${index + 1}",
-                            backgroundColor: index % 2 == 0
-                                ? Colors.blue
-                                : Colors.grey[300]!,
+                            icon: Icons.bar_chart,
+                            label: "Chart of the Day",
+                            backgroundColor: Colors.blue,
                             width: screenWidth * 0.4,
                             height: screenHeight * 0.2,
                           ),
-                        );
-                      },
+                        ),
+                        SizedBox(width: screenWidth * 0.03),
+                        _buildPopularCard(
+                          icon: Icons.play_circle_outline,
+                          label: "New Learning Video",
+                          backgroundColor: Colors.grey[200]!,
+                          width: screenWidth * 0.4,
+                          height: screenHeight * 0.2,
+                        ),
+                      ],
                     ),
                   ),
 
@@ -156,7 +167,8 @@ class _QuotesScreenState extends State<QuotesScreen> {
                       padding: EdgeInsets.only(bottom: screenHeight * 0.02),
                       child: _buildUpdateCard(
                         imageUrl:
-                            'https://test-5o8z.onrender.com/${q.imageUrl}',
+                            'https://test-5o8z.onrender.com/${q.imageUrl}' ??
+                                " ",
                         // imageUrl: 'https://test-5o8z.onrender.com/uploads/2e001edd-2e85-4e7e-bceb-ea983c0d0325.png',
                         title: "Quote ${index + 1}",
                         subtitle: q.text,
@@ -168,7 +180,86 @@ class _QuotesScreenState extends State<QuotesScreen> {
               );
             },
           ),
-          // child: FutureBuilder(
+        ));
+  }
+
+  Widget _buildPopularCard({
+    required IconData icon,
+    required String label,
+    required Color backgroundColor,
+    required double width,
+    required double height,
+  }) {
+    return Container(
+      width: width,
+      height: height,
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(icon,
+              size: 32,
+              color: backgroundColor == Colors.grey[200]
+                  ? Colors.black
+                  : Colors.white),
+          const SizedBox(height: 8),
+          Text(label,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: backgroundColor == Colors.grey[200]
+                    ? Colors.black
+                    : Colors.white,
+              )),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildUpdateCard({
+    required String imageUrl,
+    required String title,
+    required String subtitle,
+    required double screenHeight,
+  }) {
+    return Card(
+      color: Colors.white,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+            child: Image.network(
+              imageUrl,
+              fit: BoxFit.fill,
+              width: double.infinity,
+              height: screenHeight * 0.23,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(title,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 16)),
+                const SizedBox(height: 4),
+                Text(subtitle, style: const TextStyle(color: Colors.grey)),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+ // child: FutureBuilder(
           //     future: fetchQuotes(),
           //     builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           //       if (snapshot.connectionState == ConnectionState.waiting) {
@@ -264,81 +355,3 @@ class _QuotesScreenState extends State<QuotesScreen> {
           //         return Text('Nothing to show');
           //       }
           //     }),
-        ));
-  }
-
-  Widget _buildPopularCard({
-    required IconData icon,
-    required String label,
-    required Color backgroundColor,
-    required double width,
-    required double height,
-  }) {
-    return Container(
-      width: width,
-      height: height,
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: backgroundColor,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icon,
-              size: 32,
-              color: backgroundColor == Colors.grey[200]
-                  ? Colors.black
-                  : Colors.white),
-          const SizedBox(height: 8),
-          Text(label,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: backgroundColor == Colors.grey[200]
-                    ? Colors.black
-                    : Colors.white,
-              )),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildUpdateCard({
-    required String imageUrl,
-    required String title,
-    required String subtitle,
-    required double screenHeight,
-  }) {
-    return Card(
-      color: Colors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
-            child: Image.network(
-              imageUrl,
-              fit: BoxFit.fill,
-              width: double.infinity,
-              height: screenHeight * 0.23,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 16)),
-                const SizedBox(height: 4),
-                Text(subtitle, style: const TextStyle(color: Colors.grey)),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
