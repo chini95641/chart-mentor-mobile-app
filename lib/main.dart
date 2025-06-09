@@ -10,6 +10,7 @@ import 'package:chart_mentor/screens/long_term_inv.dart';
 import 'package:chart_mentor/screens/newsdetail.dart';
 import 'package:chart_mentor/screens/newsscreen.dart';
 import 'package:chart_mentor/screens/particpant.dart';
+import 'package:chart_mentor/screens/piechatscreen.dart';
 import 'package:chart_mentor/screens/profile.dart';
 import 'package:chart_mentor/screens/qoute.dart';
 import 'package:chart_mentor/screens/quizinput.dart';
@@ -31,10 +32,9 @@ import 'firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
-  print('${dotenv.env['_openAiKey']}in main');
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   runApp(const MyApp());
 }
@@ -53,26 +53,27 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         home: //DashboardScreen()
-        SplashScreen()
-        //LearnTopicsScreen()
-        //ChartMentorScreen()
-        // ChatScreen()
-        //FeedScreen()
-        // SwingTradingScreen()
-        //LongTermScreen()
-        //PastHistoryScreen()
-        //Watchlist()
-        //AssetDetailScreen()
-        //EWalletDetailScreen()
-        //LearnTopicsScreen()
-        //FeedScreen()
-        //QuizTextInputScreen()
-        // QuizQuestionScreen()
-        //NewsDetailsScreen()
-        // LearnScreen()
-        //NewsScreen()
-        //Chartofday()
-        //QuotesScreen() //
+             SplashScreen()
+            //LearnTopicsScreen()
+            //ChartMentorScreen()
+            // ChatScreen()
+            //FeedScreen()
+            // SwingTradingScreen()
+            //LongTermScreen()
+            //PastHistoryScreen()
+            //Watchlist()
+            //AssetDetailScreen()
+            //EWalletDetailScreen()
+            //LearnTopicsScreen()
+            //FeedScreen()
+            //QuizTextInputScreen()
+            // QuizQuestionScreen()
+            //NewsDetailsScreen()
+            // LearnScreen()
+            //NewsScreen()
+            //Chartofday()
+            //PortfolioScreen(),
+            //QuotesScreen() //
         //ProfileScreen()
         //StocksInsightsScreen()
         //IndexInsightsScreen()

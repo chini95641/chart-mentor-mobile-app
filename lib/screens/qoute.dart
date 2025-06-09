@@ -1,173 +1,60 @@
-// import 'package:flutter/material.dart';
-
-// class QuotesScreen extends StatelessWidget {
-//   const QuotesScreen({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     var widths = MediaQuery.sizeOf(context).width;
-//     var heights = MediaQuery.sizeOf(context).height;
-//     return Scaffold(
-//       backgroundColor: Colors.white,
-//       appBar: AppBar(
-//         backgroundColor: Colors.white,
-//         leading: const Icon(Icons.arrow_back),
-//         title: const Text('Quotes'),
-//         centerTitle: true,
-//       ),
-//       body: ListView(
-//         padding: const EdgeInsets.all(16),
-//         children: [
-//           const Row(
-//             children: [
-//               Icon(Icons.access_time, size: 18),
-//               SizedBox(width: 8),
-//               Text("Friday, 17 May",
-//                   style: TextStyle(fontWeight: FontWeight.bold)),
-//             ],
-//           ),
-//           const SizedBox(height: 4),
-//           const Text("Nifty sideways, avoid entries"),
-//           const SizedBox(height: 16),
-//           const Text("Today's Quote",
-//               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-//           const SizedBox(height: 8),
-//           Container(
-//             padding: const EdgeInsets.all(16),
-//             decoration: BoxDecoration(
-//               color: Colors.grey[100],
-//               borderRadius: BorderRadius.circular(12),
-//             ),
-//             child: const Text('"Trade only when it’s clear"',
-//                 style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic)),
-//           ),
-//           const SizedBox(height: 24),
-//           const Text("Popular",
-//               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-//           const SizedBox(height: 12),
-//           SizedBox(
-//             height: heights * .22,
-//             child: ListView(
-//               scrollDirection: Axis.horizontal,
-//               children: [
-//                 _buildPopularCard(
-//                     icon: Icons.bar_chart,
-//                     label: "Chart of the Day",
-//                     backgroundColor: Colors.blue),
-//                 const SizedBox(width: 12),
-//                 _buildPopularCard(
-//                     icon: Icons.play_circle_outline,
-//                     label: "New Learning Video",
-//                     backgroundColor: Colors.grey[200]!),
-//               ],
-//             ),
-//           ),
-//           const SizedBox(height: 24),
-//           const Text("Recent Updates",
-//               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-//           const SizedBox(height: 12),
-//           _buildUpdateCard(
-//               imageUrl: " ",
-//               title: "Market don't care about your hopes",
-//               subtitle: "Mindset Tips: Fear is not a signal"),
-//           const SizedBox(height: 12),
-//           _buildUpdateCard(
-//               imageUrl: " ",
-//               title: "Be patient, setup will come",
-//               subtitle: "Discipline over emotion."),
-//         ],
-//       ),
-//       bottomNavigationBar: BottomNavigationBar(
-//         currentIndex: 2,
-//         selectedItemColor: Colors.blue,
-//         unselectedItemColor: Colors.grey,
-//         type: BottomNavigationBarType.fixed,
-//         items: const [
-//           BottomNavigationBarItem(
-//               icon: Icon(Icons.bar_chart), label: 'Activity'),
-//           BottomNavigationBarItem(icon: Icon(Icons.school), label: 'Learn'),
-//           BottomNavigationBarItem(
-//               icon: Icon(Icons.format_quote), label: 'Quotes'),
-//           BottomNavigationBarItem(
-//               icon: Icon(Icons.pie_chart), label: 'Portfolio'),
-//           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-//         ],
-//       ),
-//     );
-//   }
-
-//   Widget _buildPopularCard({
-//     required IconData icon,
-//     required String label,
-//     required Color backgroundColor,
-//   }) {
-//     return Container(
-//       //width: 120,
-//       padding: const EdgeInsets.all(12),
-//       decoration: BoxDecoration(
-//         color: backgroundColor,
-//         borderRadius: BorderRadius.circular(12),
-//       ),
-//       child: Column(
-//         mainAxisAlignment: MainAxisAlignment.center,
-//         children: [
-//           Icon(icon,
-//               size: 32,
-//               color: backgroundColor == Colors.grey[200]
-//                   ? Colors.black
-//                   : Colors.white),
-//           const SizedBox(height: 8),
-//           Text(label,
-//               textAlign: TextAlign.center,
-//               style: TextStyle(
-//                 color: backgroundColor == Colors.grey[200]
-//                     ? Colors.black
-//                     : Colors.white,
-//               )),
-//         ],
-//       ),
-//     );
-//   }
-
-//   Widget _buildUpdateCard({
-//     required String imageUrl,
-//     required String title,
-//     required String subtitle,
-//   }) {
-//     return Card(
-//       color: Colors.white,
-//       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           ClipRRect(
-//               borderRadius:
-//                   const BorderRadius.vertical(top: Radius.circular(12)),
-//               child: Image.network(imageUrl, fit: BoxFit.fitWidth)),
-//           Padding(
-//             padding: const EdgeInsets.all(12.0),
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Text(title,
-//                     style: const TextStyle(
-//                         fontWeight: FontWeight.bold, fontSize: 16)),
-//                 const SizedBox(height: 4),
-//                 Text(subtitle, style: const TextStyle(color: Colors.grey)),
-//               ],
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
+import 'dart:convert';
 
 import 'package:chart_mentor/screens/chartofday.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
-class QuotesScreen extends StatelessWidget {
+class Quote {
+  final String text;
+  final String imageUrl;
+
+  Quote({required this.text, required this.imageUrl});
+
+  factory Quote.fromJson(Map<String, dynamic> json) {
+    return Quote(
+      text: json['_id'] ?? '',
+      imageUrl: json['image'] ?? '',
+    );
+  }
+}
+
+class QuotesScreen extends StatefulWidget {
   const QuotesScreen({super.key});
+
+  @override
+  State<QuotesScreen> createState() => _QuotesScreenState();
+}
+
+class _QuotesScreenState extends State<QuotesScreen> {
+  // List<Quote> qoutedata = [];
+  Future<List<Quote>> fetchQuotes() async {
+    final url = Uri.parse('https://test-5o8z.onrender.com/api/quotes');
+
+    final response = await http.get(
+      url,
+      headers: {
+        'Authorization':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxNDgyYTk1Ni1lZWU3LTRkYjMtYmZjZi1lNjIwMzc1YWI4MzgiLCJuYW1lIjoidGVzdCB0ZXN0Iiwicm9sZSI6IkFETUlOIiwiZW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsImlhdCI6MTc0OTMwMjM0MywiZXhwIjoxNzQ5ODIwNzQzfQ.3P-Yae2j0v6jZ--fa7Nr1ZfQ5mE_EcqrXQVesnxzAkY',
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+    );
+    print(response.body + 'Qoutes api');
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> jsonData = json.decode(response.body);
+      final List<dynamic> data = jsonData['result'];
+      return data.map((item) => Quote.fromJson(item)).toList();
+    } else {
+      throw Exception('Failed to load quotes');
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchQuotes();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -175,113 +62,209 @@ class QuotesScreen extends StatelessWidget {
     final screenHeight = MediaQuery.sizeOf(context).height;
 
     return Scaffold(
-      backgroundColor: Colors.white,
-      // appBar: AppBar(
-      //   backgroundColor: Colors.white,
-      //   leading: const Icon(Icons.arrow_back),
-      //   title: const Text('Quotes'),
-      //   centerTitle: true,
-      // ),
-      body: Padding(
-        padding: const EdgeInsets.only(top: 18.0),
-        child: ListView(
-          padding: EdgeInsets.all(screenWidth * 0.04),
-          children: [
-            const Row(
-              children: [
-                Icon(Icons.access_time, size: 18),
-                SizedBox(width: 8),
-                Text("Friday, 17 May",
-                    style: TextStyle(fontWeight: FontWeight.bold)),
-              ],
-            ),
-            SizedBox(height: screenHeight * 0.005),
-            const Text("Nifty sideways, avoid entries"),
-            SizedBox(height: screenHeight * 0.02),
-            const Text("Today's Quote",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-            SizedBox(height: screenHeight * 0.01),
-            Container(
-              padding: EdgeInsets.all(screenWidth * 0.04),
-              decoration: BoxDecoration(
-                color: Colors.grey[100],
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: const Text('"Trade only when it’s clear"',
-                  style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic)),
-            ),
-            SizedBox(height: screenHeight * 0.03),
-            const Text("Popular",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-            SizedBox(height: screenHeight * 0.015),
-            SizedBox(
-              height: screenHeight * 0.3,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
+        backgroundColor: Colors.white,
+        body: Padding(
+          padding: const EdgeInsets.only(top: 18.0),
+          child: FutureBuilder<List<Quote>>(
+            future: fetchQuotes(),
+            builder:
+                (BuildContext context, AsyncSnapshot<List<Quote>> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return const Center(child: Text('Failed to load quotes'));
+              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                return const Center(child: Text('No quotes available'));
+              }
+
+              final quotes = snapshot.data!;
+
+              return ListView(
+                padding: EdgeInsets.all(screenWidth * 0.04),
                 children: [
-                  InkWell(
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Chartofday(),
-                        )),
-                    child: _buildPopularCard(
-                      icon: Icons.bar_chart,
-                      label: "Chart of the Day",
-                      backgroundColor: Colors.blue,
-                      width: screenWidth * 0.4,
-                      height: screenHeight * 0.2,
+                  // Date Header
+                  const Row(
+                    children: [
+                      Icon(Icons.access_time, size: 18),
+                      SizedBox(width: 8),
+                      Text("Friday, 17 May",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                  SizedBox(height: screenHeight * 0.005),
+                  const Text("Nifty sideways, avoid entries"),
+                  SizedBox(height: screenHeight * 0.02),
+
+                  // Quote
+                  const Text("Today's Quote",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  SizedBox(height: screenHeight * 0.01),
+                  Container(
+                    padding: EdgeInsets.all(screenWidth * 0.04),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[100],
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Text(
+                      quotes.first.text,
+                      style: const TextStyle(
+                          fontSize: 16, fontStyle: FontStyle.italic),
                     ),
                   ),
-                  SizedBox(width: screenWidth * 0.03),
-                  _buildPopularCard(
-                    icon: Icons.play_circle_outline,
-                    label: "New Learning Video",
-                    backgroundColor: Colors.grey[200]!,
-                    width: screenWidth * 0.4,
-                    height: screenHeight * 0.2,
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: screenHeight * 0.03),
-            const Text("Recent Updates",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-            SizedBox(height: screenHeight * 0.015),
-            _buildUpdateCard(
-              imageUrl: "assets/images/Image1.png",
-              title: "Market don't care about your hopes",
-              subtitle: "Mindset Tips: Fear is not a signal",
-              screenHeight: screenHeight,
-            ),
-            SizedBox(height: screenHeight * 0.02),
-            _buildUpdateCard(
-              imageUrl: "assets/images/Image1.png",
-              title: "Be patient, setup will come",
-              subtitle: "Discipline over emotion.",
-              screenHeight: screenHeight,
-            ),
-          ],
 
-          // bottomNavigationBar: BottomNavigationBar(
-          //   backgroundColor: Colors.white,
-          //   currentIndex: 2,
-          //   selectedItemColor: Colors.blue,
-          //   unselectedItemColor: Colors.grey,
-          //   type: BottomNavigationBarType.fixed,
-          //   items: const [
-          //     BottomNavigationBarItem(
-          //         icon: Icon(Icons.bar_chart), label: 'Activity'),
-          //     BottomNavigationBarItem(icon: Icon(Icons.school), label: 'Learn'),
-          //     BottomNavigationBarItem(
-          //         icon: Icon(Icons.format_quote), label: 'Quotes'),
-          //     BottomNavigationBarItem(
-          //         icon: Icon(Icons.pie_chart), label: 'Portfolio'),
-          //     BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-          //   ],
-        ),
-      ),
-    );
+                  SizedBox(height: screenHeight * 0.03),
+
+                  // Popular section using horizontal ListView
+                  const Text("Popular",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  SizedBox(height: screenHeight * 0.015),
+                  SizedBox(
+                    height: screenHeight * 0.3,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: quotes.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: EdgeInsets.only(right: screenWidth * 0.03),
+                          child: _buildPopularCard(
+                            icon: Icons.lightbulb, // can be dynamic if needed
+                            label: "Quote ${index + 1}",
+                            backgroundColor: index % 2 == 0
+                                ? Colors.blue
+                                : Colors.grey[300]!,
+                            width: screenWidth * 0.4,
+                            height: screenHeight * 0.2,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+
+                  SizedBox(height: screenHeight * 0.03),
+
+                  // Updates section using data from the same API
+                  const Text("Recent Updates",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  SizedBox(height: screenHeight * 0.015),
+                  ...List.generate(quotes.length, (index) {
+                    final q = quotes[index];
+                    print('${q.imageUrl} mydata');
+                    return Padding(
+                      padding: EdgeInsets.only(bottom: screenHeight * 0.02),
+                      child: _buildUpdateCard(
+                        imageUrl:
+                            'https://test-5o8z.onrender.com/${q.imageUrl}',
+                        // imageUrl: 'https://test-5o8z.onrender.com/uploads/2e001edd-2e85-4e7e-bceb-ea983c0d0325.png',
+                        title: "Quote ${index + 1}",
+                        subtitle: q.text,
+                        screenHeight: screenHeight,
+                      ),
+                    );
+                  }),
+                ],
+              );
+            },
+          ),
+          // child: FutureBuilder(
+          //     future: fetchQuotes(),
+          //     builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          //       if (snapshot.connectionState == ConnectionState.waiting) {
+          //         return Center(
+          //           child: CircularProgressIndicator(),
+          //         );
+          //       } else if (snapshot.hasData) {
+          //         var Data = snapshot.data;
+          //         return ListView.builder(
+          //           padding: EdgeInsets.all(screenWidth * 0.04),
+          //           children: [
+          //             const Row(
+          //               children: [
+          //                 Icon(Icons.access_time, size: 18),
+          //                 SizedBox(width: 8),
+          //                 Text("Friday, 17 May",
+          //                     style: TextStyle(fontWeight: FontWeight.bold)),
+          //               ],
+          //             ),
+          //             SizedBox(height: screenHeight * 0.005),
+          //             const Text("Nifty sideways, avoid entries"),
+          //             SizedBox(height: screenHeight * 0.02),
+          //             const Text("Today's Quote",
+          //                 style: TextStyle(
+          //                     fontSize: 16, fontWeight: FontWeight.bold)),
+          //             SizedBox(height: screenHeight * 0.01),
+          //             Container(
+          //               padding: EdgeInsets.all(screenWidth * 0.04),
+          //               decoration: BoxDecoration(
+          //                 color: Colors.grey[100],
+          //                 borderRadius: BorderRadius.circular(12),
+          //               ),
+          //               child: const Text('"Trade only when it’s clear"',
+          //                   style: TextStyle(
+          //                       fontSize: 16, fontStyle: FontStyle.italic)),
+          //             ),
+          //             SizedBox(height: screenHeight * 0.03),
+          //             const Text("Popular",
+          //                 style: TextStyle(
+          //                     fontSize: 16, fontWeight: FontWeight.bold)),
+          //             SizedBox(height: screenHeight * 0.015),
+          //             SizedBox(
+          //               height: screenHeight * 0.3,
+          //               child: ListView(
+          //                 scrollDirection: Axis.horizontal,
+          //                 children: [
+          //                   InkWell(
+          //                     onTap: () => Navigator.push(
+          //                         context,
+          //                         MaterialPageRoute(
+          //                           builder: (context) => Chartofday(),
+          //                         )),
+          //                     child: _buildPopularCard(
+          //                       icon: Icons.bar_chart,
+          //                       label: "Chart of the Day",
+          //                       backgroundColor: Colors.blue,
+          //                       width: screenWidth * 0.4,
+          //                       height: screenHeight * 0.2,
+          //                     ),
+          //                   ),
+          //                   SizedBox(width: screenWidth * 0.03),
+          //                   _buildPopularCard(
+          //                     icon: Icons.play_circle_outline,
+          //                     label: "New Learning Video",
+          //                     backgroundColor: Colors.grey[200]!,
+          //                     width: screenWidth * 0.4,
+          //                     height: screenHeight * 0.2,
+          //                   ),
+          //                 ],
+          //               ),
+          //             ),
+          //             SizedBox(height: screenHeight * 0.03),
+          //             const Text("Recent Updates",
+          //                 style: TextStyle(
+          //                     fontSize: 16, fontWeight: FontWeight.bold)),
+          //             SizedBox(height: screenHeight * 0.015),
+          //             _buildUpdateCard(
+          //               imageUrl: Data['image'],
+          //               title: Data['Description'],
+          //               subtitle: "Mindset Tips: Fear is not a signal",
+          //               screenHeight: screenHeight,
+          //             ),
+          //             SizedBox(height: screenHeight * 0.02),
+          //             _buildUpdateCard(
+          //               imageUrl: "assets/images/Image1.png",
+          //               title: "Be patient, setup will come",
+          //               subtitle: "Discipline over emotion.",
+          //               screenHeight: screenHeight,
+          //             ),
+          //           ],
+          //         );
+          //       } else {
+          //         return Text('Nothing to show');
+          //       }
+          //     }),
+        ));
   }
 
   Widget _buildPopularCard({
@@ -334,7 +317,7 @@ class QuotesScreen extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
-            child: Image.asset(
+            child: Image.network(
               imageUrl,
               fit: BoxFit.fill,
               width: double.infinity,

@@ -1,4 +1,6 @@
 import 'package:chart_mentor/screens/auth/numberscreen.dart';
+import 'package:chart_mentor/screens/homescreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Page2 extends StatefulWidget {
@@ -62,9 +64,16 @@ class _Page2State extends State<Page2> {
               padding: EdgeInsets.only(top: heights * .08),
               child: GestureDetector(
                 onTap: () {
+                  if (FirebaseAuth.instance.currentUser == null) {
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return NumberScreen();
+                      },
+                    ));
+                  }
                   Navigator.push(context, MaterialPageRoute(
                     builder: (context) {
-                      return NumberScreen();
+                      return DashboardScreen();
                     },
                   ));
                 },

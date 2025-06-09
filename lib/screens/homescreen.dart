@@ -137,6 +137,7 @@ import 'package:chart_mentor/screens/feedscreen.dart';
 import 'package:chart_mentor/screens/indexhistory.dart';
 import 'package:chart_mentor/screens/learnpage.dart';
 import 'package:chart_mentor/screens/newsscreen.dart';
+import 'package:chart_mentor/screens/piechatscreen.dart';
 import 'package:chart_mentor/screens/profile.dart';
 import 'package:chart_mentor/screens/qoute.dart';
 import 'package:chart_mentor/screens/quizscreen.dart';
@@ -298,7 +299,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     FeedScreen(),
     LearnScreen(),
     QuotesScreen(),
-    //PortfolioScreen(),
+    PortfolioScreen(),
     ProfileScreen(),
   ];
 
@@ -351,8 +352,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
           BottomNavigationBarItem(icon: Icon(Icons.school), label: 'Learn'),
           BottomNavigationBarItem(
               icon: Icon(Icons.format_quote), label: 'Quotes'),
-          // BottomNavigationBarItem(
-          //     icon: Icon(Icons.pie_chart), label: 'Portfolio'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.pie_chart), label: 'Portfolio'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
       ),

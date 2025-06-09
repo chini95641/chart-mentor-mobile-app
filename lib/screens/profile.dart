@@ -1,3 +1,5 @@
+import 'package:chart_mentor/screens/splashscreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -15,32 +17,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     var widths = MediaQuery.sizeOf(context).width;
     var heights = MediaQuery.sizeOf(context).height;
-    return 
-     Scaffold(
-    //   backgroundColor: Colors.white,
-    //   appBar: AppBar(
-    //     backgroundColor: Colors.white,
-    //     title: Row(
-    //       children: [
-    //         Image.asset(
-    //           'assets/logo/Logo.png',
-    //           height: 25,
-    //         ),
-    //         Text(
-    //           'Chart Mentor',
-    //           style: TextStyle(fontWeight: FontWeight.bold),
-    //         ),
-    //       ],
-    //     ),
-    //     actions: const [
-    //       Padding(
-    //         padding: EdgeInsets.only(right: 16),
-    //         child: Icon(Icons.notifications_outlined),
-    //       ),
-    //     ],
-    //   ),
-       body: 
-      ListView(
+    return Scaffold(
+      //   backgroundColor: Colors.white,
+      //   appBar: AppBar(
+      //     backgroundColor: Colors.white,
+      //     title: Row(
+      //       children: [
+      //         Image.asset(
+      //           'assets/logo/Logo.png',
+      //           height: 25,
+      //         ),
+      //         Text(
+      //           'Chart Mentor',
+      //           style: TextStyle(fontWeight: FontWeight.bold),
+      //         ),
+      //       ],
+      //     ),
+      //     actions: const [
+      //       Padding(
+      //         padding: EdgeInsets.only(right: 16),
+      //         child: Icon(Icons.notifications_outlined),
+      //       ),
+      //     ],
+      //   ),
+      body: ListView(
         //padding: const EdgeInsets.all(16),
         children: [
           Row(
@@ -72,6 +72,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
           _buildTile("Change Password"),
           _buildTile("Subscription"),
           _buildTile("Support"),
+          GestureDetector(
+            onTap: () {
+              FirebaseAuth.instance.signOut().whenComplete(() {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => SplashScreen()),
+                  (route) => false,
+                );
+              });
+            },
+            child: _buildTile("LogOut"),
+          ),
           const SizedBox(height: 16),
           Container(
             width: double.infinity,
@@ -105,23 +117,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 style: TextStyle(color: Colors.blue.shade700)),
           ),
         ],
-      
-      // bottomNavigationBar: BottomNavigationBar(
-      //   currentIndex: 4,
-      //   selectedItemColor: Colors.blue,
-      //   unselectedItemColor: Colors.grey,
-      //   type: BottomNavigationBarType.fixed,
-      //   items: const [
-      //     BottomNavigationBarItem(
-      //         icon: Icon(Icons.bar_chart), label: 'Activity'),
-      //     BottomNavigationBarItem(icon: Icon(Icons.school), label: 'Learn'),
-      //     BottomNavigationBarItem(
-      //         icon: Icon(Icons.format_quote), label: 'Quotes'),
-      //     BottomNavigationBarItem(
-      //         icon: Icon(Icons.pie_chart), label: 'Portfolio'),
-      //     BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-      //   ],
-       ),
+
+        // bottomNavigationBar: BottomNavigationBar(
+        //   currentIndex: 4,
+        //   selectedItemColor: Colors.blue,
+        //   unselectedItemColor: Colors.grey,
+        //   type: BottomNavigationBarType.fixed,
+        //   items: const [
+        //     BottomNavigationBarItem(
+        //         icon: Icon(Icons.bar_chart), label: 'Activity'),
+        //     BottomNavigationBarItem(icon: Icon(Icons.school), label: 'Learn'),
+        //     BottomNavigationBarItem(
+        //         icon: Icon(Icons.format_quote), label: 'Quotes'),
+        //     BottomNavigationBarItem(
+        //         icon: Icon(Icons.pie_chart), label: 'Portfolio'),
+        //     BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+        //   ],
+      ),
     );
   }
 

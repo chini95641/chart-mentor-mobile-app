@@ -1,8 +1,45 @@
+import 'dart:convert';
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
-class Chartofday extends StatelessWidget {
+class Chartofday extends StatefulWidget {
   const Chartofday({super.key});
+
+  @override
+  State<Chartofday> createState() => _ChartofdayState();
+}
+
+class _ChartofdayState extends State<Chartofday> {
+  Future<List<ChartData>> fetchCharts() async {
+    final url = Uri.parse('https://test-5o8z.onrender.com/api/charts');
+
+    final response = await http.get(
+      url,
+      headers: {
+        'Authorization':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxNDgyYTk1Ni1lZWU3LTRkYjMtYmZjZi1lNjIwMzc1YWI4MzgiLCJuYW1lIjoidGVzdCB0ZXN0Iiwicm9sZSI6IkFETUlOIiwiZW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsImlhdCI6MTc0OTMwMjM0MywiZXhwIjoxNzQ5ODIwNzQzfQ.3P-Yae2j0v6jZ--fa7Nr1ZfQ5mE_EcqrXQVesnxzAkY',
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+    );
+    print(response.body + 'Qoutes api');
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> jsonData = json.decode(response.body);
+      final List<dynamic> data = jsonData['result'];
+      return data.map((item) => ChartData.fromJson(item)).toList();
+    } else {
+      throw Exception('Failed to load quotes');
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchCharts();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,65 +55,69 @@ class Chartofday extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildChart(heights: heights * .3),
-          SizedBox(
-            height: 15,
-          ),
-          Text(
-            'Swing Breakout',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          SizedBox(
-            height: 15,
-          ),
-          Expanded(
-            child: RichText(
-              text: const TextSpan(
-                style: TextStyle(fontSize: 16, color: Colors.black87),
+          //_buildChart(heights: heights * .3),
+          FutureBuilder(
+            future: fetchCharts(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return const Center(child: Text('Failed to load quotes'));
+              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                return const Center(child: Text('No quotes available'));
+              }
+              final chartDataList = snapshot.data as List<ChartData>;
+              final chart =
+                  chartDataList.first; // Use the first item for display
+              print('https://test-5o8z.onrender.com/${chart.imageUrl}');
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextSpan(
-                    text:
-                        'Curabitur nulla mi, facilisis id risus eget, pellentesque consectetur augue. Phasellus volutpat tincidunt laoreet.',
-                  ),
-                  TextSpan(text: '\n\n'), // space between paragraphs
-                  TextSpan(
-                    text:
-                        'Nullam eu eleifend massa. Pellentesque eu aliquet turpis, vel cursus purus.',
-                  ),
-                  TextSpan(text: '\n\n'),
-                  TextSpan(
-                    text:
-                        'Mauris et neque ex. Aenean congue iaculis velit, non mollis quam rhoncus at. Nulla facilisi.\t',
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image.network(
+                      'https://test-5o8z.onrender.com/${chart.imageUrl}',
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: heights * .3,
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return Container(
+                          width: double.infinity,
+                          height: heights * .3,
+                          color: Colors.grey[200],
+                          child:
+                              const Center(child: CircularProgressIndicator()),
+                        );
+                      },
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          width: double.infinity,
+                          height: heights * .3,
+                          color: Colors.grey[200],
+                          child: const Center(
+                              child: Icon(Icons.broken_image,
+                                  size: 50, color: Colors.grey)),
+                        );
+                      },
+                    ),
                   ),
 
-                  TextSpan(
-                      text:
-                          'Pellentesque eu aliquet turpis, vel cursus purus. Mauris et neque ex. Aenean congue iaculis velit, non mollis quam rhoncus at. Nulla facilisi.\t'),
-
-                  TextSpan(
-                      text:
-                          'Pellentesque eu aliquet turpis, vel cursus purus. Mauris et neque ex. Aenean congue iaculis velit, non mollis quam rhoncus at. Nulla facilisi.'),
+                  // Image.network(
+                  //     'https://test-5o8z.onrender.com/${chart.imageUrl}'),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  RichText(
+                    text: TextSpan(
+                        text: '${chart.description}',
+                        style: TextStyle(color: Colors.black, fontSize: 18)),
+                  ),
                 ],
-              ),
-            ),
+              );
+            },
           ),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
-        currentIndex: 0, // Highlight "Activity"
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.blue,
-        items: const [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.timeline), label: "Activity"),
-          BottomNavigationBarItem(icon: Icon(Icons.school), label: "Learn"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.format_quote), label: "Quotes"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.pie_chart), label: "Portfolio"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person_4_outlined), label: "Profile"),
         ],
       ),
     );
@@ -171,6 +212,20 @@ class Chartofday extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class ChartData {
+  final String description;
+  final String imageUrl;
+
+  ChartData({required this.description, required this.imageUrl});
+
+  factory ChartData.fromJson(Map<String, dynamic> json) {
+    return ChartData(
+      description: json['description'] ?? '',
+      imageUrl: json['imageUrl'] ?? '',
     );
   }
 }
